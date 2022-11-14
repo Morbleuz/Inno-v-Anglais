@@ -1,0 +1,11 @@
+.navstyle {
+    border-radius: 0% 0% 20% 20%;
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
+    background: rgb(0, 123, 172);
+    background: linear-gradient(90deg, rgba(0, 123, 172, 1) 0%, rgba(0, 155, 186, 1) 100%);
+}
+
+.navsize {
+    height: 80px;
+}
