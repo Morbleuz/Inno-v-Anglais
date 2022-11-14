@@ -11,8 +11,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
 #[ORM\Entity(repositoryClass: TestRepository::class)]
 #[ApiResource(
     itemOperations: ["get"=>["security"=>"is_granted('ROLE_USER')"],
-        "post"=>["security"=>"is_granted('ROLE_ADMIN')"],
-        "patch"=>["security"=>"is_granted('ROLE_ADMIN')"]]
+        "patch"=>["security"=>"is_granted('ROLE_ADMIN')"]],
+    collectionOperations: ["post"=>["security"=>"is_granted('ROLE_ADMIN')"],
+    "get"=>["security"=>"is_granted('ROLE_USER')"]]
 )]
 class Test
 {

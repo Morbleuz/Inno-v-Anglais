@@ -10,9 +10,10 @@ use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: MotRepository::class)]
 #[ApiResource(
-    ["get"=>["security"=>"is_granted('ROLE_USER')"],
-    "post"=>["security"=>"is_granted('ROLE_ADMIN')"],
-    "patch"=>["security"=>"is_granted('ROLE_ADMIN')"]]
+    itemOperations: ["get"=>["security"=>"is_granted('ROLE_USER')"],
+        "patch"=>["security"=>"is_granted('ROLE_ADMIN')"]],
+    collectionOperations: ["post"=>["security"=>"is_granted('ROLE_ADMIN')"],
+    "get"=>["security"=>"is_granted('ROLE_ADMIN')"]]
 )]
 class Mot
 {

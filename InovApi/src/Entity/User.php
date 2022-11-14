@@ -14,7 +14,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource(
     itemOperations: ["get"=>["security"=>"is_granted('ROLE_USER') or object == user"],
-        "patch"=>["security"=>"is_granted('ROLE_ADMIN') or object == user"]]
+        "patch"=>["security"=>"is_granted('ROLE_ADMIN') or object == user"]],
+    collectionOperations: ["post"=>["security"=>"is_granted('ROLE_ADMIN')"],
+            "get"=>["security"=>"is_granted('ROLE_ADMIN')"]]
 )]
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
