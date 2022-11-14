@@ -5,8 +5,14 @@ namespace App\Entity;
 use App\Repository\ResultatRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: ResultatRepository::class)]
+#[ApiResource(
+    ["get"=>["security"=>"is_granted('ROLE_USER')"],
+        "post"=>["security"=>"is_granted('ROLE_ADMIN')"],
+        "patch"=>["security"=>"is_granted('ROLE_ADMIN')"]]
+)]
 class Resultat
 {
     #[ORM\Id]
