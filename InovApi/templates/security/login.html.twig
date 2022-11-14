@@ -35,7 +35,7 @@
                                         <div class="form-outline mb-4">
                                             <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe" />
                                         </div>
-
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                                         {% if error %}
                                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                                         {% endif %}
