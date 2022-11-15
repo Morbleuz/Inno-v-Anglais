@@ -19,15 +19,20 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        for($i=0;$i<11;$i++){
+        for($i=0;$i<12;$i++){
             $user = new User();
             if ($i==0) {
+                $user->setUsername('ritzzo62')
+                    ->setNom('RITZZO')
+                    ->setRoles(array('ROLE_ADMIN'))
+                    ->setPrenom('Pierre')
+                    ->setPassword('ritzzo62');     
+            } if ($i==1) {
                 $user->setUsername('Tozano')
                     ->setNom('OZANO')
                     ->setRoles(array('ROLE_ADMIN'))
                     ->setPrenom('Tanguy')
-                    ->setPassword('btsinfo');
-                    
+                    ->setPassword('btsinfo');     
             } else {
                 $nom=$this->faker->lastName();
                 $prenom=$this->faker->firstName();
