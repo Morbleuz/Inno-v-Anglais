@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mots
+{% endblock %}
+
+{% block body %}
+<div class='container'>
+    <div id="accordion">
+        {% for theme in listeTheme %}
+            <div class="card">
+                <div class="card-header" data-bs-toggle="collapse" data-bs-target="#collapse{{theme.theme|replace({' ': "-"})}}" aria-expanded="false" aria-controls="collapse{{theme.theme|replace({' ': "-"})}}">
+                    <h5 class="mb-0" style='display:none;' id="{{theme.id}}editing">
+                        <p>                    
+                            <div class="input-group mb-3">
+                                <input id="themeEdit" placeholder="{{theme.theme}}" aria-label="{{theme.theme}}" aria-describedby="button-addon2">
+                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Envoyer</button>
+                            </div>
+
+                            <img src='{{ asset('assets/delete-perm.png') }}' class='deletepermmodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <img src='{{ asset('assets/delete.png') }}' class='deletemodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <img src='{{ asset('assets/edit.png') }}' class='editmodal' height='36' width='36' align='right' name='{{theme.id}}'>
+                        </p>
+                    </h5>
+                    <h5 class="mb-0" id="{{theme.id}}notediting">
+                        <p>
+                            <strong id='{{theme.id}}'>{{theme.theme}}</strong>
+
+                            <img src='{{ asset('assets/delete-perm.png') }}' id='deletepermmodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <img src='{{ asset('assets/delete.png') }}' id='deletemodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <img src='{{ asset('assets/edit.png') }}' id='editmodal' height='36' width='36' align='right' name='{{theme.id}}'>
+                        </p>
+                    </h5>
+                </div>
+
+                <div id="collapse{{theme.theme|replace({' ': "-"})}}" class="collapse" data-bs-parent="#accordion">
+                    <div class="card card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nom Francais</th>
+                                <th>Nom Anglais</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for mot in theme.mots %}
+                                <tr>
+                                    <td>{{mot.motFrancais}}</td>
+                                    <td>{{mot.motAnglais}}</td>
+                                    <td>
+                                        <select selected='{{theme.theme}}'>
+                                            {% for themes in listeTheme %}
+                                            <option>{{themes.theme}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td><img src='{{ asset('assets/edit.png') }}' height='24' width='24' align='right'></td>
+                                    <td><img src='{{ asset('assets/delete.png') }}' height='24' width='24' align='right'></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">http://s3-4377.nuage-peda.fr/InovApi/index.php/mots
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Voulez-vous vraiment 
+        <strong id='modalAction'></strong>
+         définitivement 
+        
+         ainsi que les mots 
+        <p name="modalMot" id="modalMot"> </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary">Confirmer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $(document).click(function(event) {
+        if (!$(event.target).closest("#themeEdit").length && $("#themeEdit")[0].parentNode.parentNode.style.display != 'none') {
+            //$("#themeEdit").hide();
+        }
+    });
+
+    $("#editmodal").click(function () {
+        toggleThemeEdit('#' + $(this)[0].name);
+    });
+    $("#deletemodal").click(function () {
+        $('#modalAction').text('supprimer');
+        $('#modalMot').text('test');
+    });
+    $("#deletepermmodal").click(function () {
+        $('#modalAction').text('supprimer');
+        $('#modalMot').text('test');
+    });
+
+    function toggleThemeEdit(name)
+    {
+        if ($(name + 'editing')[0].style.display === 'none')
+        {
+            $(name + 'notediting').hide();
+            $(name + 'editing').show();
+        }
+        else
+        {
+            $(name + 'editing').hide();
+            $(name + 'notediting').show();
+        }
+       //console.log($(name + 'editing'));
+    }
+});
+</script>
+{% endblock %}

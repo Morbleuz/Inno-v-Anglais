@@ -14,7 +14,7 @@
     <!--row d-flex justify-content-center align-items-center h-100 -->
     <section class="h-100">
         <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center content">
+            <div class="row d-flex justify-content-center align-items-center">
                 <div class="col-xl-10">
                     <div class="card rounded-3 text-black connect-box">
                         <div class="row g-0">
@@ -30,10 +30,12 @@
                                         <p>Merci de vous connectez avec vôtre compte</p>
 
                                         <div class="form-outline mb-4">
+                                            <b>Nom d'utilisateur</b>
                                             <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus placeholder="Nom d'utilisateur" />
                                         </div>
 
                                         <div class="form-outline mb-4">
+                                            <b>Mot de passe</b>
                                             <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe" />
                                         </div>
                                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">

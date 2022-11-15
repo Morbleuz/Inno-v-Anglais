@@ -13,15 +13,12 @@
     background: linear-gradient(135deg, rgba(0, 123, 172, 0.7) 0%, rgba(0, 155, 186, 0.7) 100%);
 }
 
-/*
 .content {
     position: fixed;
     left: 0;
     right: 0;
     z-index:2000;
 }
-*/
-
 
 .nav-toggle-overide {
     position: fixed !important;
