@@ -31,27 +31,8 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
-
-                <ul class="navbar-nav me-auto d-flex">
-                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{path('app_login')}}">Se connecter</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{path('app_register')}}">Je souhaite m'inscrire</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{path('app_logout')}}">
-                            {{app.user.username}}
-                            <i class="bi bi-x-circle-fill text-white"></i>
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
             */
+            $user->setPassword($form->get('plainPassword')->getData());
             
             $user->setScoreTotal(0);
             $entityManager->persist($user);
