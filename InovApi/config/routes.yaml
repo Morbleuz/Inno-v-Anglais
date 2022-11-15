@@ -1,7 +1,3 @@
 index:
     path: /
-<<<<<<< HEAD
     controller: App\Controller\BaseController::index
-=======
-    controller: App\Controller\BaseController::index
->>>>>>> 110a27f70d1812f61e5d9948335e91a5ef495705

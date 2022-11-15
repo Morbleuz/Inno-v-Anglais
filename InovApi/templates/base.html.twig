@@ -2,7 +2,6 @@
 <html>
 
 <head>
-
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
@@ -21,8 +20,8 @@
 
 <body>
 
-
-    <nav class="navbar navbar-expand-lg navbar-dark navstyle">
+    <div class="bg-picture"></div>
+    <nav class="navbar navbar-expand-lg navstyle">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{path('app_base')}}">
                 <img src="./assets/logo.png" alt="Innov'Anglais" style="width:100px;height:70px;">
@@ -34,9 +33,7 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home
-                            <span class="visually-hidden">(current)</span>
-                        </a>
+                        <a class="nav-link" href="#">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Features</a>
