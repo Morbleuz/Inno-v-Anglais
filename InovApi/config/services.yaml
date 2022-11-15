@@ -27,6 +27,9 @@ services:
         decorates: 'api_platform.openapi.factory'
         autoconfigure: false
 
+    App\Doctrine\UserListener:
+        tags: ['doctrine.orm.entity_listener']
+
     acme_api.event.authentication_success_listener:
         class: App\EventListener\AuthenticationSuccessListener
         tags:

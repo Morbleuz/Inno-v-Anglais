@@ -10,12 +10,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Doctrine\UserListener;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\EntityListeners([UserListener::class])]
 #[ApiResource(
     itemOperations: ["get"=>["security"=>"is_granted('ROLE_USER') or object == user"],
         "patch"=>["security"=>"is_granted('ROLE_ADMIN') or object == user"]],
-    collectionOperations: ["post"=>["security"=>"is_granted('ROLE_ADMIN')"],
+    collectionOperations: ["post",
             "get"=>["security"=>"is_granted('ROLE_ADMIN')"]]
 )]
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
@@ -39,7 +41,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column]
-    private ?int $scoreTotal = null;
+    private ?int $scoreTotal = 0;
 
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Resultat::class)]
     private Collection $resultats;
@@ -92,7 +94,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        //$roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
