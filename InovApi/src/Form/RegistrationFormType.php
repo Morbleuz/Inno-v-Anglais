@@ -19,7 +19,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'attr' => ['class'=> 'form-control', 'placeholder' => 'Nom d\'utilisateur'], 
+                'attr' => ['class'=> 'form-control', 'placeholder' => 'Nom d\'utilisateur'],
                 'label_attr' => ['class'=> 'fw-bold'],
             //    'attr' => ['placeholder' => 'hereYourPlaceHolder']
             ])
@@ -44,7 +44,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Votre mot de passe doit se composer d\'au moin {{ limit }} character',
+                        'minMessage' => 'Votre mot de passe doit se composer d\'au moins {{ limit }} character',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),

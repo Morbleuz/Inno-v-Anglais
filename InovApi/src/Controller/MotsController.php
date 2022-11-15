@@ -16,6 +16,8 @@ class MotsController extends AbstractController
     #[Route('/mots', name: 'app_mots')]
     public function index(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $liste = new Liste();
         $mot = new Mot();
         $formTheme = $this->createForm(ThemeType::class, $liste);
