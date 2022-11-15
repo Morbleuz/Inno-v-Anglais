@@ -1,61 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfilController!{% endblock %}
+{% block title %}Profil{% endblock %}
 
 {% block body %}
 {% if app.user is defined %}
+{{form_start(form)}}
 <div class="container rounded bg-white mt-5 mb-5">
+    <h1 class="text-center">Bienvenue sur vôtre profil {{app.user.prenom}} !</h1>
+    <p class="text-center">Vous avez cumulé plus de <strong class="text-danger">{{app.user.scoreTotal}}</strong> points sur nôtre site, bravo !</p>
     <div class="container pr-5 pl-5">
         <div class="p-3 py-5">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="text-right">Profile Settings</h4>
+                <h3 class="text-right ">Modification de vos informations :</h4>
             </div>
             <div class="row mt-2">
                 <div class="col-md-6">
-                    <label class="labels">Nom</label>
-                    <input type="text" class="form-control" placeholder="first name" value="">
+                    <label for="nom" class="labels">Nom</label>
+                    {{form_widget(form.nom)}}
+
                 </div>
+                {{ form_row(form._token) }}
                 <div class="col-md-6">
-                    <label class="labels">Prénom</label>
-                    <input type="text" class="form-control" value="" placeholder="surname">
+                    <label for="nom" class="labels">Prénom</label>
+
+                    {{form_widget(form.prenom)}}
+
                 </div>
             </div>
             <div class="row mt-3">
+                <!--
                 <div class="col-md-12">
-                    <label class="labels">PhoneNumber</label>
-                    <input type="text" class="form-control" placeholder="enter phone number" value="">
+                    <label for="nom" class="labels">Identifiant</label>
+
+
                 </div>
-                <div class="col-md-12">
-                    <label class="labels">Address</label>
-                    <input type="text" class="form-control" placeholder="enter address" value="">
-                </div>
-                <div class="col-md-12">
-                    <label class="labels">Email ID</label>
-                    <input type="text" class="form-control" placeholder="enter email id" value="">
-                </div>
-                <div class="col-md-12">
-                    <label class="labels">Education</label>
-                    <input type="text" class="form-control" placeholder="education" value="">
-                </div>
+                -->
             </div>
-            <div class="row mt-3">
-                <div class="col-md-6">
-                    <label class="labels">Country</label>
-                    <input type="text" class="form-control" placeholder="country" value="">
-                </div>
-                <div class="col-md-6">
-                    <label class="labels">State/Region</label>
-                    <input type="text" class="form-control" value="" placeholder="state">
-                </div>
-            </div>
+
             <div class="mt-5 text-center">
-                <button class="btn btn-primary profile-button" type="button">Save Profile</button>
+                {{form_widget(form.submit)}}
             </div>
         </div>
     </div>
-</div>
-</div>
-</div>
+    {% if app.user.resultats is empty %}
+    <h3 class="text-center">Vous n'avez pas encore de résultat, try to learn now.</h3>
+    {% else %}
+    {% for resultat in app.user.resulats %}
+    New resultat
+    {% endfor %}
+    {% endif %}
 </div>
 {% endif %}
 {% endblock %}
