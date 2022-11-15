@@ -1,3 +1,8 @@
 index:
     path: /
     controller: App\Controller\BaseController::index
+
+authentication_token:
+    path: /api/authentication_token
+    methods: ['POST']
+

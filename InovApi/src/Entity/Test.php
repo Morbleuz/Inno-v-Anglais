@@ -6,8 +6,15 @@ use App\Repository\TestRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: TestRepository::class)]
+#[ApiResource(
+    itemOperations: ["get"=>["security"=>"is_granted('ROLE_USER')"],
+        "patch"=>["security"=>"is_granted('ROLE_ADMIN')"]],
+    collectionOperations: ["post"=>["security"=>"is_granted('ROLE_ADMIN')"],
+    "get"=>["security"=>"is_granted('ROLE_USER')"]]
+)]
 class Test
 {
     #[ORM\Id]

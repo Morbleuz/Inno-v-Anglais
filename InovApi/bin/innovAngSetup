@@ -1,0 +1,31 @@
+#!/bin/bash
+
+DB_USER='login4426';
+DB_PASSWD='gYlSjWLERaYsBrn';
+DB_NAME='dbSimpleduc';
+
+ICI=$(pwd)
+
+# Il faut être administrateur
+rep=$(whoami)
+if [ ! "$rep" == "root" ]
+then
+  echo "Il faut être 'root'"
+  exit 1
+fi
+
+cd ../
+#composer update
+
+# La création de la base de donnée et de ses tables
+
+# Création d'une base de donnée et de son utilisateur attitré'
+php bin/console doctrine:database:create
+php bin/console make:migration
+php bin/console doctrine:migration:migrate
+
+php bin/console doctrine:fixtures:load
+
+echo "Les tables ont été remplies"
+
+cd $ICI

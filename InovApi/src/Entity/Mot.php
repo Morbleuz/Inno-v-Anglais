@@ -6,8 +6,15 @@ use App\Repository\MotRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: MotRepository::class)]
+#[ApiResource(
+    itemOperations: ["get"=>["security"=>"is_granted('ROLE_USER')"],
+        "patch"=>["security"=>"is_granted('ROLE_ADMIN')"]],
+    collectionOperations: ["post"=>["security"=>"is_granted('ROLE_ADMIN')"],
+    "get"=>["security"=>"is_granted('ROLE_ADMIN')"]]
+)]
 class Mot
 {
     #[ORM\Id]

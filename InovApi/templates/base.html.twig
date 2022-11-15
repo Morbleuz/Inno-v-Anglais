@@ -13,7 +13,7 @@
     <link href="https://bootswatch.com/5/lumen/bootstrap.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
     {% endblock %}
-    <title>{% block title %}Innov'Anglais - {% endblock %}</title>
+    <title>Innov'Anglais - {% block title %}{% endblock %}</title>
     {% block form %}{% endblock %}
 </head>
 
@@ -36,22 +36,16 @@
                         <a class="nav-link" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="#">Apprendre</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Information</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="{{path ('app_ccm')}}">Comment ça marche</a>
+
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
+                            <a class="dropdown-item" href="{{path ('app_information')}}">Contributeur</a>
                         </div>
                     </li>
                 </ul>
