@@ -17,7 +17,7 @@ class MotFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        for($i=0;$i<14;$i++){
+        for($i=0;$i<15;$i++){
             $mot = new Mot();
             if ($i==0) {
                 $mot->setMotAnglais('house')
@@ -61,8 +61,11 @@ class MotFixtures extends Fixture
             }  else if ($i==13) {
                 $mot->setMotAnglais('graphic card')
                     ->setMotFrancais('carte graphique');
+            }  else if ($i==13) {
+                $mot->setMotAnglais('graphic card')
+                    ->setMotFrancais('carte graphique');
             }
-            
+
             $this->addReference('mot'.$i, $mot);
             $manager->persist($mot);
         }
