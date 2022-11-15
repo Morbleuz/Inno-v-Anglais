@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Il faut être administrateur
+rep=$(whoami)
+if [ ! "$rep" == "root" ]
+then
+  echo "Il faut être 'root'"
+  exit 1
+fi
+
+# On supprime la base de donnée actuelle
+php console doctrine:database:drop --force
+
+# On supprime les migrations stockées dans le serveur
+DOSSIER='/var/www/html/Inno-v-Anglais/InovApi/migrations/'
+find $DOSSIER -not -regex .*\.gitignore$ -type f -exec rm {} \; 2> /dev/null
+find $DOSSIER -not -regex $DOSSIER -type d -exec rm -fr {} \; 2> /dev/null
+
+# On installe une toute nouvelle base de donnée
+./innovAngSetup
+
+echo "La base de donnée a été remise à zéro"
