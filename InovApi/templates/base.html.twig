@@ -2,7 +2,6 @@
 <html>
 
 <head>
-
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
@@ -14,15 +13,15 @@
     <link href="https://bootswatch.com/5/lumen/bootstrap.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
     {% endblock %}
-    <title>{% block title %}Innov'Anglais - {% endblock %}</title>
+    <title>Innov'Anglais - {% block title %}{% endblock %}</title>
     {% block form %}{% endblock %}
 </head>
 
 
 <body>
 
-
-    <nav class="navbar navbar-expand-lg navbar-dark navstyle">
+    <div class="bg-picture"></div>
+    <nav class="navbar navbar-expand-lg navstyle">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{path('app_base')}}">
                 <img src="./assets/logo.png" alt="Innov'Anglais" style="width:100px;height:70px;">
@@ -51,16 +50,34 @@
                             <a class="dropdown-item" href="{{path ('app_information')}}">Contributeur</a>
                         </div>
                     </li>
+                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('app_login')}}">Se connecter</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('app_register')}}">Je souhaite m'inscrire</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('app_logout')}}">
+                            {{app.user.username}}
+                        </a>
+                    </li>
+                    {% endif %}
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                </form>
             </div>
         </div>
     </nav>
 
-
+    {% for message in app.flashes('notice') %}
+    <h2 class="alert alert-warning text-center mt-4 mb-4" role="alert">
+        {{ message }}</h2>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+    <h2 class="alert alert-danger text-center mt-4 mb-4" role="alert">
+        {{ message }}</h2>
+    {% endfor %}
     {% block body %}{% endblock %}
 
     {% block javascripts %}

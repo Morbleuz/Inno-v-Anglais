@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau test !{% endblock %}
+
+{% block body %}
+<div class="container text-center">
+    <h1>Welcome to new test</h1>
+    <p>
+        <allez effectuer un test niveau '{{test.niveau}}' </p>
+</div>
+{% for mot in liste.mots %}
+Il y a un mot
+{% endfor %}
+{% endblock %}
