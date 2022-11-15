@@ -27,7 +27,7 @@ class UserFixtures extends Fixture
                     ->setRoles(array('ROLE_ADMIN'))
                     ->setPrenom('Pierre')
                     ->setPassword('ritzzo62');     
-            } if ($i==1) {
+            } else if ($i==1) {
                 $user->setUsername('Tozano')
                     ->setNom('OZANO')
                     ->setRoles(array('ROLE_ADMIN'))
