@@ -6,8 +6,11 @@ use App\Repository\ResultatRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Doctrine\ResultatListener;
+
 
 #[ORM\Entity(repositoryClass: ResultatRepository::class)]
+#[ORM\EntityListeners([ResultatListener::class])]
 #[ApiResource(
     itemOperations: ["get"=>["security"=>"is_granted('ROLE_USER')"],
         "patch"=>["security"=>"is_granted('ROLE_ADMIN')"]],
