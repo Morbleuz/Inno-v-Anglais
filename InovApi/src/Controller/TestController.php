@@ -34,7 +34,9 @@ class TestController extends AbstractController
 
         $test = $repository->findOneBy(array('id' => $id));
         $liste = $repositoryListe->findOneBy(array('id' => $test->getLier()->getId()));
+
         
+
         return $this->render('test/test.html.twig', [
             'test' => $test, 
             'liste'=>$liste

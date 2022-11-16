@@ -7,24 +7,29 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ListeRepository::class)]
 #[ApiResource(
-    itemOperations: ["get"=>["security"=>"is_granted('ROLE_USER')"],
+    normalizationContext:['groups' => ['read']],
+    itemOperations: ["get"=>["security"=>"is_granted('ROLE_USER') or object == user"],
         "patch"=>["security"=>"is_granted('ROLE_ADMIN')"]],
     collectionOperations: ["post"=>["security"=>"is_granted('ROLE_ADMIN')"],
-    "get"=>["security"=>"is_granted('ROLE_ADMIN')"]]
+    "get"=>["security"=>"is_granted('ROLE_USER') or object == user"]]
 )]
 class Liste
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(["read"])]
     private ?int $id = null;
 
+    #[Groups(["read"])]
     #[ORM\Column(length: 100)]
     private ?string $theme = null;
 
+    #[Groups(["read"])]
     #[ORM\ManyToMany(targetEntity: Mot::class, mappedBy: 'appartenir')]
     private Collection $mots;
 
