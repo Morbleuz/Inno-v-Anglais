@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ClassementController!{% endblock %}
+
+{% block body %}
+<div class="container text-center">
+    <h1 class="">Voici le classement du site !</h1>
+    <p>Les meilleurs sont en premier</p>
+</div>
+<table class="table table-bordered caption-top navstyle">
+    <thead>
+        <tr>
+            <td>
+                Nom</td>
+            <td>
+                Prénom
+            </td>
+            <td>Score Total</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users | sort((a, b) => b.scoreTotal <=> a.scoreTotal)%}
+        <tr class="{{ cycle(['table-black', 'table-secondary'], loop.index0) }}">
+            <td>{{user.nom | capitalize}}
+            </td>
+            <td>{{user.prenom | capitalize}}
+            </td>
+            <td>{{user.scoreTotal}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
