@@ -156,7 +156,7 @@ $(document).ready(function(){
         $('#staticBackdrop').modal('show');
         $('#modalAction').text('supprimer');
         $('#modalMot').text('le mot ' + $(this)[0].accessKey + ' ?');
-        $('#modalID').text($(this)[0].id);
+        $('#modalID').val($(this)[0].id);
     });
 
     $("#confirmDelete").click(function () {

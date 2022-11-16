@@ -39,16 +39,6 @@ class MotRepository extends ServiceEntityRepository
         }
     }
 
-    public function deleteOneByID($id): ?int
-    {
-        $q = $this->createQueryBuilder('m')
-        ->delete()
-        ->where('m.id = :val')
-        ->setParameter('val',$id)
-        ->getQuery();
-        return $q->getResult();
-    }
-
     public function findOneByID($id): ?Mot
     {
         return $this->createQueryBuilder('m')

@@ -58,10 +58,10 @@ class MotsController extends AbstractController
         {
             $formID = $request->request->get('id');
 
-            $mot = $this->getDoctrine()->getRepository(Mot::class)->deleteOneByID($formID);
+            $mot = $this->getDoctrine()->getRepository(Mot::class)->findOneByID($formID);
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($mot);
+            $em->remove($mot);
             $em->flush();
         }
 
