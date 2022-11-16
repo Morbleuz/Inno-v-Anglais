@@ -44,11 +44,11 @@
                     </h5>
                     <h5 class="mb-0" id="{{theme.id}}notediting">
                         <p>
-                            <strong id='{{theme.id}}' data-bs-toggle="collapse" data-bs-target="#collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" aria-expanded="false" aria-controls="collapse{{theme.theme|replace({' ': "-", "'": "-"})}}">{{theme.theme}}</strong>
+                            <strong id='{{theme.id}}' data-bs-toggle="collapse" data-bs-target="#collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" aria-expanded="false" aria-controls="collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" style="cursor: pointer;">{{theme.theme}}</strong>
 
-                            <img src='{{ asset('assets/delete-perm.png') }}' id='deletepermmodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            <img src='{{ asset('assets/delete.png') }}' id='deletemodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            <img src='{{ asset('assets/edit.png') }}' id='editmodal' height='36' width='36' align='right' name='{{theme.id}}'>
+                            <img src='{{ asset('assets/delete-perm.png') }}' id='deletepermmodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer;">
+                            <img src='{{ asset('assets/delete.png') }}' id='deletemodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer;">
+                            <img src='{{ asset('assets/edit.png') }}' id='editmodal' height='36' width='36' align='right' name='{{theme.id}}' style="cursor: pointer;">
                         </p>
                     </h5>
                 </div>
@@ -60,36 +60,29 @@
                                 <tr>
                                     <th>Nom Francais</th>
                                     <th>Nom Anglais</th>
-                                    <th class="themeEdit" style="display:none;">Theme</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <form id="motForm" path="{{ path('app_mots') }}" method="POST">
                                 {% for mot in theme.mots %}
-                                    <tr>
-                                        <input type="hidden" name="id" value="{{mot.id}}"></input>
-                                        <td>
-                                            <text id="edit1-{{mot.id}}">{{mot.motFrancais}}</text>
-                                            <textarea class='motToEdit' id='edit3-{{mot.id}}' style='resize: none; display:none;' name="motFrancais" rows='1' title="{{mot.motFrancais}}">{{mot.motFrancais}}</textarea>
-                                        </td>
-                                        <td>
-                                            <text id="edit2-{{mot.id}}">{{mot.motAnglais}}</text>
-                                            <textarea class='motToEdit' id='edit4-{{mot.id}}' style='resize: none; display:none;' name="motAnglais" rows='1' title="{{mot.motAnglais}}">{{mot.motAnglais}}</textarea>
-                                        </td>
-                                        <td class="themeEdit" style="display:none;">
-                                            <select selected='{{theme.theme}}'>
-                                                {% for themes in listeTheme %}
-                                                <option title="{{themes.theme}}">{{themes.theme}}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </td>
-                                        <td><img src='{{ asset('assets/edit.png') }}' class="editMot" id="{{mot.id}}" height='24' width='24' align='right'></td>
-                                        <td><img src='{{ asset('assets/delete.png') }}' height='24' width='24' align='right'></td>
-                                    </tr>
+                                    <form id="motForm{{mot.id}}" path="{{ path('app_mots') }}" method="POST">
+                                        <tr>
+                                            <input type="hidden" name="type" value="editMot"></input>
+                                            <input type="hidden" name="id" value="{{mot.id}}"></input>
+                                            <td>
+                                                <text id="edit1-{{mot.id}}">{{mot.motFrancais}}</text>
+                                                <textarea class='motToEdit' id='edit3-{{mot.id}}' style='resize: none; display:none;' name="motFrancais" rows='1' title="{{mot.motFrancais}}">{{mot.motFrancais}}</textarea>
+                                            </td>
+                                            <td>
+                                                <text id="edit2-{{mot.id}}">{{mot.motAnglais}}</text>
+                                                <textarea class='motToEdit' id='edit4-{{mot.id}}' style='resize: none; display:none;' name="motAnglais" rows='1' title="{{mot.motAnglais}}">{{mot.motAnglais}}</textarea>
+                                            </td>
+                                            <td><img src='{{ asset('assets/edit.png') }}' class="editMot" id="{{mot.id}}" height='24' width='24' align='right' style="cursor: pointer;"></td>
+                                            <td><img src='{{ asset('assets/delete.png') }}' class="deleteMot" id="{{mot.id}}" accessKey="{{mot.motFrancais}}" height='24' width='24' align='right' style="cursor: pointer;"></td>
+                                        </tr>
+                                    </form>
                                 {% endfor %}
-                                </form>
                             </tbody>
                         </table>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -107,22 +100,24 @@
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Voulez-vous vraiment 
-        <strong id='modalAction'></strong>
-         définitivement 
-        
-         ainsi que les mots 
-        <p name="modalMot" id="modalMot"> </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <button type="button" class="btn btn-primary">Confirmer</button>
-      </div>
+        <form id="modalForm" path="{{ path('app_mots') }}" method="POST">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Voulez-vous vraiment
+                <strong id='modalAction'></strong>
+                    définitivement
+                <p name="modalMot" id="modalMot"></p>
+                <input id="modalID" name="id" type="hidden"></input>
+                <input id="modalType" name="type" type="hidden" value="deleteMot"></input>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Confirmer</button>
+            </div>
+        </form>
     </div>
   </div>
 </div>
@@ -132,24 +127,22 @@ $(document).ready(function(){
     $(".editMot").click(function () {
         if ($(this)[0].accessKey === 'done')
         {
-            $(".themeEdit").hide();
             $("#edit1-" + $(this)[0].id).show();
             $("#edit2-" + $(this)[0].id).show();
             $("#edit3-" + $(this)[0].id).hide();
-            //if ($("#edit3-" + $(this)[0].id).title != $("#edit3-" + $(this)[0].id).value)
-            //{
-                console.log("title = " + $("#edit3-" + $(this)[0].id)[0].title);
-                console.log("html = " + $("#edit3-" + $(this)[0].id)[0].value);
-                $('#motForm').submit();
-            //}
             $("#edit4-" + $(this)[0].id).hide();
+            if (($("#edit3-" + $(this)[0].id)[0].title !== $("#edit3-" + $(this)[0].id)[0].value) || ($("#edit4-" + $(this)[0].id)[0].title !== $("#edit4-" + $(this)[0].id)[0].value))
+            {
+                console.log($("#edit3-" + $(this)[0].id)[0].title);
+                console.log($("#edit3-" + $(this)[0].id)[0].value);
+                $('#motForm' + $(this)[0].id).submit();
+            }
             console.log($("#edit3-" + $(this)[0].id));
             $(this)[0].src = "{{ asset('assets/edit.png') }}";
             $(this)[0].accessKey = 'edit';
         }
         else
         {
-            $(".themeEdit").show();
             $("#edit1-" + $(this)[0].id).hide();
             $("#edit2-" + $(this)[0].id).hide();
             $("#edit3-" + $(this)[0].id).show();
@@ -157,6 +150,17 @@ $(document).ready(function(){
             $(this)[0].src = "{{ asset('assets/done.png') }}";
             $(this)[0].accessKey = 'done';
         }
+    });
+
+    $(".deleteMot").click(function () {
+        $('#staticBackdrop').modal('show');
+        $('#modalAction').text('supprimer');
+        $('#modalMot').text('le mot ' + $(this)[0].accessKey + ' ?');
+        $('#modalID').val($(this)[0].id);
+    });
+
+    $("#confirmDelete").click(function () {
+        $('#modalForm').submit();
     });
 
     $("#removeEdit").click(function () {
