@@ -21,16 +21,22 @@
     height: 100%;
     overflow: hidden;
     position: relative;
+
 }
 
 .ccm {
     background-color: black;
     position: fixed;
-    height: 50%;
+    width: 50%;
     opacity: 80%;
     margin-left: 5%;
 }
 
+.list-group-item {
+    background-color: black;
+    opacity: 80%;
+
+}
 
 .nav-toggle-overide {
     position: fixed !important;
@@ -73,7 +79,4 @@
     left: 0;
     width: 100%;
     height: 100%;
-}
-
-height: 100%;
 }
