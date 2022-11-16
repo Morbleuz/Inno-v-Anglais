@@ -18,6 +18,8 @@ class MotsController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
+        $returnValue = '';
+
         $liste = new Liste();
         $mot = new Mot();
         $formTheme = $this->createForm(ThemeType::class, $liste);
@@ -28,7 +30,6 @@ class MotsController extends AbstractController
         $formMots = $this->createForm(MotType::class, $mot);
         $formMots->handleRequest($request);
 
-        /*
         if ($formMots->isSubmitted() && $formMots->isValid())
         {
             
@@ -37,15 +38,37 @@ class MotsController extends AbstractController
         {
             
         }
-        */
+        else if ($request->request->get('type') == 'editMot')
+        {
+            $formID = $request->request->get('id');
+            $motFrancais = $request->request->get('motFrancais');
+            $motAnglais = $request->request->get('motAnglais');
+            //$appartenir = $request->request->get('motAnglais');
 
-        $test = $request->query->get('motFrancais');
+            $mot = $this->getDoctrine()->getRepository(Mot::class)->findOneByID($formID);
+            $mot->setMotAnglais($motAnglais);
+            $mot->setMotFrancais($motFrancais);
+            
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($mot);
+            $em->flush();
+        }
+        else if ($request->request->get('type') == 'deleteMot')
+        {
+            $formID = $request->request->get('id');
+
+            $mot = $this->getDoctrine()->getRepository(Mot::class)->findOneByID($formID);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($mot);
+            $em->flush();
+        }
 
         return $this->render('mots/mots.html.twig', [
             'formTheme' => $formTheme->createView(),
             'formMots' => $formMots->createView(),
             'listeTheme' => $listeTheme,
-            'test' => $test,
         ]);
     }
 }

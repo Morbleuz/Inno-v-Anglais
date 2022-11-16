@@ -6,7 +6,7 @@
 {% block body %}
 	{% if app.user is defined %}
 		{{form_start(form)}}
-		<div class="container rounded bg-white mt-5 mb-5">
+		<div class="container rounded bg-white mt-5 mb-5 connect-box" style="margin-top: 7%">
 			<h1 class="text-center">Bienvenue sur votre profil :
 				{{app.user.prenom}}
 				!</h1>
@@ -22,6 +22,7 @@
 						<div class="col-md-6">
 							<label for="nom" class="labels">Nom</label>
 							{{form_widget(form.nom)}}
+
 
 						</div>
 						{{ form_row(form._token) }}
@@ -78,3 +79,4 @@
 		</div>
 	{% endif %}
 {% endblock %}
+
