@@ -39,10 +39,13 @@ class MotsController extends AbstractController
         }
         */
 
+        $test = $request->query->get('motFrancais');
+
         return $this->render('mots/mots.html.twig', [
             'formTheme' => $formTheme->createView(),
             'formMots' => $formMots->createView(),
             'listeTheme' => $listeTheme,
+            'test' => $test,
         ]);
     }
 }

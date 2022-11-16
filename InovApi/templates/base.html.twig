@@ -8,6 +8,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     {% block stylesheets %}
     <!-- Bootstrap CSS -->
     <link href="https://bootswatch.com/5/lumen/bootstrap.min.css" rel="stylesheet">
@@ -66,15 +68,15 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{path('app_test')}}">
-                           Faire des tests 
+                            Faire des tests
                         </a>
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{path('app_mots')}}">
-                                Gestion du vocabulaire
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('app_mots')}}">
+                            Gestion du vocabulaire
+                        </a>
+                    </li>
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{path('app_logout')}}">

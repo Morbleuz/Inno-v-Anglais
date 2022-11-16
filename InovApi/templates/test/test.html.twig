@@ -3,12 +3,34 @@
 {% block title %}Nouveau test !{% endblock %}
 
 {% block body %}
-<div class="container text-center">
-    <h1>Welcome to new test</h1>
-    <p>
-        <allez effectuer un test niveau '{{test.niveau}}' </p>
+<div>
+    <input id="id" type="hidden" data-liste-id="{{liste.id}}" data-test-id="{{test.id}}" data-user-id="{{app.user.id}}">
+
+    <div class="container text-center ecran">
+        <h1>Welcome to new test 📚</h1>
+        <p>Vous allez effectuer un test niveau '{{test.niveau}}'</p>
+        <p>Le thème de ce test est '{{liste.theme}}'</p>
+        <p>Lorsque êtes prêt appuyer sur le bouton pour commencer</p>
+        <button class="btn btn-primary" id="startButton">Commencer !</button>
+    </div>
+
+    {% for mot in liste.mots %}
+    <div class="container text-center p-2 ecran">
+        <p>Le mot à traduire est '<strong>{{mot.motanglais}}</strong>'</p>
+        <input class="inputReponse" type="text" placeholder="Saisir la réponse" /><br>
+        <button class="btn btn-primary m-2 boutonSuivant" disabled>Suivant</button>
+    </div>
+    {% endfor %}
+
+    <div class="container text-center p-2 ecran">
+        <p>Vous avez obtenu un résultat de <span id="nbScore">10</span>/<span id="nombreDeMots">20</span>
+        </p>
+        <a href="{{path('app_base')}}"><button class="btn btn-primary m-2">Revenir au menu</button></a>
+    </div>
 </div>
-{% for mot in liste.mots %}
-Il y a un mot
-{% endfor %}
+
+<script type="text/javascript" src="{{ asset('js/scriptTest.js') }}">
+
+</script>
+
 {% endblock %}
