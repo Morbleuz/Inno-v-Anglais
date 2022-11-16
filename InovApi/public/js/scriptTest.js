@@ -19,7 +19,7 @@ const longueurListeMot = ecrans.length - 2;
 var listeDeMot = [];
 var listeReponse = [];
 var score = 0;
-var urlSite = 'http://s3-4426.nuage-peda.fr/Inno-v-Anglais/InovApi/index.php/api/';
+var urlSite = 'http://s3-4440.nuage-peda.fr/Inno-v-Anglais/InovApi/public/api/';
 // lien vps : https://tanguy.ozano.ovh/Inno-v-Anglais/public/api/
 
 nombreMot.innerHTML = longueurListeMot;
@@ -173,7 +173,7 @@ function showEcranVisible() {
 function ajouteEventListener() {
     $('.inputReponse').on("change keyup paste", checkIfEcranValide)
     for (inputResponse of inputReponses) {
-        //inputResponse.addEventListener('change', checkIfEcranValide)
+        inputResponse.addEventListener('change', checkIfEcranValide);
 
     }
     for (bouton of boutonSuivant) {
