@@ -6,8 +6,9 @@
 {% block body %}
 {% if app.user is defined %}
 {{form_start(form)}}
-<div class="container rounded bg-white mt-5 mb-5 connect-box p-5 bg-opacity-75" style="margin-top: 7%">
-    <h1 class="text-center">Bienvenue sur votre profil :
+<div class="container rounded mt-5 mb-5 connect-pro card cardup-log" style="margin-top: 7%">
+
+    <h1 class="text-center">Bienvenue sur votre profil,
         {{app.user.prenom}}
         !</h1>
     <p class="text-center">Vous avez cumulé plus de
@@ -51,7 +52,7 @@
     {% if app.user.resultats is empty %}
     <h3 class="text-center">Vous n'avez pas encore de résultats, try to learn now.</h3>
     {% else %}
-    <table class="table caption-top ">
+    <table class="table caption-top">
         <caption>Voici vos résultats :</caption>
         <thead>
             <tr>
