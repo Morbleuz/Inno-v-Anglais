@@ -13,7 +13,7 @@
     {% block stylesheets %}
     <!-- Bootstrap CSS -->
     <link href="https://bootswatch.com/5/lumen/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
+    <link href="{{asset('./css/style.css')}}" rel="stylesheet">
     {% endblock %}
     <title>Innov'Anglais - {% block title %}{% endblock %}</title>
     {% block form %}{% endblock %}
@@ -111,10 +111,10 @@
     {% endblock %}
     <article class="content connect-art" style="margin-top: 12%">
         <footer id="footer">
-            2021. This web page is open source, go check out the source of this page on  <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Github</a>.
-        </footer>      
+            2021. This web page is open source, go check out the source of this page on <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Github</a>.
+        </footer>
     </article>
-    
+
 </body>
 
 
