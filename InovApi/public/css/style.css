@@ -17,8 +17,15 @@
     position: fixed;
     left: 0;
     right: 0;
-    z-index:2000;
+    z-index: 2000;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+
 }
+
+
 
 .nav-toggle-overide {
     position: fixed !important;
@@ -33,8 +40,12 @@
     right: 0;
     display: block;
     background-image: url("london.png");
-    width: 1920px;
-    height: 1080px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+    width: 100%;
+    height: 100%;
     -webkit-filter: blur(5px);
     -moz-filter: blur(5px);
     -o-filter: blur(5px);
