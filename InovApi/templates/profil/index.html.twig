@@ -5,8 +5,8 @@
 {% block body %}
 {% if app.user is defined %}
 {{form_start(form)}}
-<div class="container rounded bg-white mt-5 mb-5">
-    <h1 class="text-center">Bienvenue sur vôtre profil {{app.user.prenom}} !</h1>
+<div class="container rounded mb-5 content connect-box" style="margin-top: 7%">
+    <h1 class="text-center"><br/>Bienvenue sur vôtre profil {{app.user.prenom}} !</h1>
     <p class="text-center">Vous avez cumulé plus de <strong class="text-danger">{{app.user.scoreTotal}}</strong> points sur nôtre site, bravo !</p>
     <div class="container pr-5 pl-5">
         <div class="p-3 py-5">
@@ -43,7 +43,7 @@
         </div>
     </div>
     {% if app.user.resultats is empty %}
-    <h3 class="text-center">Vous n'avez pas encore de résultat, try to learn now.</h3>
+    <h3 class="text-center">Vous n'avez pas encore de résultat, try to learn now. <br/></h3>
     {% else %}
     {% for resultat in app.user.resulats %}
     New resultat
