@@ -39,28 +39,23 @@ class MotRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Mot[] Returns an array of Mot objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function deleteOneByID($id): ?int
+    {
+        $q = $this->createQueryBuilder('m')
+        ->delete()
+        ->where('m.id = :val')
+        ->setParameter('val',$id)
+        ->getQuery();
+        return $q->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Mot
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findOneByID($id): ?Mot
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
