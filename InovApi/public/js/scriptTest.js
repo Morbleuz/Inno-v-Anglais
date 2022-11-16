@@ -19,7 +19,8 @@ const longueurListeMot = ecrans.length - 2;
 var listeDeMot = [];
 var listeReponse = [];
 var score = 0;
-
+var urlSite = 'http://s3-4426.nuage-peda.fr/Inno-v-Anglais/InovApi/public/api/';
+// lien vps : https://tanguy.ozano.ovh/Inno-v-Anglais/public/api/
 
 nombreMot.innerHTML = longueurListeMot;
 cacheAllEcran();
@@ -41,7 +42,8 @@ function envoieResultat() {
             'Content-Type': 'application/ld+json',
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
-        url: "http://s3-4440.nuage-peda.fr/Inno-v-Anglais/InovApi/public/api/resultats",
+        url: urlSite + "resultats",
+        //        url: "http://s3-4440.nuage-peda.fr/Inno-v-Anglais/InovApi/public/api/resultats",
         method: "POST",
         data: JSON.stringify({
             score: score,
@@ -73,7 +75,7 @@ function recupListeMotAnglais() {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
-        url: "http://s3-4440.nuage-peda.fr/Inno-v-Anglais/InovApi/public/api/listes/" + idListe,
+        url: urlSite + "listes/" + idListe,
         method: "GET",
         data: JSON.stringify([]),
         dataType: "json",
@@ -82,6 +84,7 @@ function recupListeMotAnglais() {
         }
     });
     request.done(function(msg) {
+        console.log(msg);
         for (mot of msg.mots) {
             console.log(mot.motAnglais);
             listeReponse.push(mot.motFrancais);
@@ -119,7 +122,7 @@ function recupToken() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: "http://s3-4440.nuage-peda.fr/Inno-v-Anglais/InovApi/public/api/authentication_token",
+        url: urlSite + "authentication_token",
         method: "POST",
         data: JSON.stringify({
             username: localStorage.getItem('username'),
