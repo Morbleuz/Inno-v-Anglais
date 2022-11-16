@@ -17,7 +17,7 @@
     position: fixed;
     left: 0;
     right: 0;
-    z-index:2000;
+    z-index: 2000;
 }
 
 .nav-toggle-overide {
@@ -40,6 +40,7 @@
     -o-filter: blur(5px);
     -ms-filter: blur(5px);
     filter: blur(5px);
+    z-index: -1;
 }
 
 .navsize {
