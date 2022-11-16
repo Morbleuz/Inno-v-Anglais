@@ -27,6 +27,8 @@
     position: fixed;
     opacity: 80%;
     margin-left: 5%;
+    overflow: hidden;
+    position: absolute;
 }
 
 .list-group-item {
@@ -108,8 +110,7 @@ span:after {
 footer {
     text-align: center;
     padding-right: 10px;
-    margin-top: 20px;
-    position: center;
+    margin-top: 50%;
     width: 100%;
     height: auto;
     height: auto;
