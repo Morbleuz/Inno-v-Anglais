@@ -3,8 +3,6 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-<form method="post">
-
     {% if app.user %}
     <div class="mb-3 content">
         You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
@@ -26,12 +24,21 @@
                                         <h4 class="mt-1 mb-5 pb-1">Nous sommes Innov'Anglais</h4>
                                     </div>
 
-                                    <form>
-                                        <p>Merci de vous connectez avec vôtre compte</p>
+                                        <p>Veuillez vous inscrire</p>
 
                                         <div class="form-outline mb-4">
                                             {{ form_row(registrationForm.username, {
-                                                label: 'Nom d\'utilisateur'
+                                                label: 'Login de l\'utilisateur'
+                                            }) }}
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            {{ form_row(registrationForm.nom, {
+                                                label: 'Nom de l\'utilisateur'
+                                            }) }}
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            {{ form_row(registrationForm.prenom, {
+                                                label: 'Prenom de l\'utilisateur'
                                             }) }}
                                         </div>
 
@@ -44,12 +51,9 @@
                                             {{ form_row(registrationForm.agreeTerms) }}
                                         </div>
                                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
                                         <div class="text-center pt-1 mb-5 pb-1">
                                             <button type="submit" class="btn btn-primary btn-block fa-lg mb-3">Créer un compte</button>
                                         </div>
-
-                                    </form>
 
                                 </div>
                             </div>
@@ -78,6 +82,5 @@
             </label>
         </div>
     #}
-</form>
 {{ form_end(registrationForm) }}
 {% endblock %}
