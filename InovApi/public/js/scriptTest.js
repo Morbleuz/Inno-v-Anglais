@@ -43,7 +43,7 @@ function envoieResultat() {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
         url: urlSite + "resultats",
-        //        url: "http://s3-4440.nuage-peda.fr/Inno-v-Anglais/InovApi/public/api/resultats",
+        //        url: "http://s3-4435.nuage-peda.fr/Inno-v-Anglais/InovApi/public/api/resultats",
         method: "POST",
         data: JSON.stringify({
             score: score,
