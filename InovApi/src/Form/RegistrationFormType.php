@@ -19,7 +19,16 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'attr' => ['class'=> 'form-control', 'placeholder' => 'Nom d\'utilisateur'],
+                'attr' => ['class'=> 'form-control', 'placeholder' => 'Votre login'],
+                'label_attr' => ['class'=> 'fw-bold'],
+            //    'attr' => ['placeholder' => 'hereYourPlaceHolder']
+            ])
+            ->add('nom', TextType::class, [
+                'attr' => ['class'=> 'form-control', 'placeholder' => 'Nom de l\'utilisateur'],
+                'label_attr' => ['class'=> 'fw-bold'],
+            //    'attr' => ['placeholder' => 'hereYourPlaceHolder']
+            ])->add('prenom', TextType::class, [
+                'attr' => ['class'=> 'form-control', 'placeholder' => 'Prenom de l\'utilisateur'],
                 'label_attr' => ['class'=> 'fw-bold'],
             //    'attr' => ['placeholder' => 'hereYourPlaceHolder']
             ])

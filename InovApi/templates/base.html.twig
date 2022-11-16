@@ -61,6 +61,23 @@
                     </li>
                     {% else %}
                     <li class="nav-item">
+                        <a class="nav-link" href="{{path('app_profil')}}">
+                            Mon profil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('app_test')}}">
+                           Faire des tests 
+                        </a>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('app_mots')}}">
+                                Gestion du vocabulaire
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
                         <a class="nav-link" href="{{path('app_logout')}}">
                             Se déconnecter de {{app.user.username}}
                         </a>
