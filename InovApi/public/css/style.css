@@ -27,7 +27,7 @@
 .ccm {
     background-color: black;
     position: fixed;
-    width: 50%;
+    height: 50%;
     opacity: 80%;
     margin-left: 5%;
 }
