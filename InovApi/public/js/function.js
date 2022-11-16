@@ -1,5 +1,5 @@
 // Will remove the blur of the background image on load
-function blurRemove(){
+function blurRemove() {
     element = document.styleSheets[1].cssRules[4].style;
     console.log(element);
     element.removeProperty('-webkit-filter');

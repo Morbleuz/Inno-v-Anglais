@@ -1,19 +1,27 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-<div style="margin-top: 10%">
-<div class="page-header mt-5 m-5 content" style="margin-top: 10%;">
-    <h1>Innov'Anglais, c'est quoi ?</h1>
-    <p class="container m-5">
-    Le site Innov'Anglais a pour but de faciliter l'apprentissage de l'Anglais, de manière éducatif et sans prise de tête.
-    <br>Avec Innov'Anglais, testé vos connaissance linguistique grâce a notre outils situé en page
-    "<a href="{{path('app_apprendre')}}">Apprendre</a>".
+<div class="ccm" style="margin-top: 10%">
+
+    <div class="page-header mt-5 m-5 container ">
+        <h1 class="text-white m-5">Innov'Anglais, c'est quoi ?</h1>
+        <p class="container m-5 text-white">
+            Le site Innov'Anglais a pour but de faciliter l'apprentissage de l'Anglais, de manière éducatif et sans prise de tête.
+            <br>Avec Innov'Anglais, testé vos connaissances linguistiques grâce à notre outil situé en page
+            "<a href="{{path('app_apprendre')}}">Apprendre</a>".
 
 
-    <br>
-    Ce dernière est totalement gratuit et est dêvelopper continuellement.
-</p>
-</div>
+            <br>
+            Ce dernier est totalement gratuit et est développer continuellement.
+        </p>
+        <h1 class="text-white m-5">Le fonctionnement</h1>
+        <p class="container m-5 text-white">
+            Il vous suffit de choisir un test parmis les {{lesTests|length}} disponibles.
+            <br>
+            À la fin de ce test le résultat vous sera affiché
+        </p>
+
+    </div>
 </div>
 
 

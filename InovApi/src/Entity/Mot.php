@@ -7,9 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MotRepository::class)]
 #[ApiResource(
+    normalizationContext:['groups' => ['read']],
     itemOperations: ["get"=>["security"=>"is_granted('ROLE_USER')"],
         "patch"=>["security"=>"is_granted('ROLE_ADMIN')"]],
     collectionOperations: ["post"=>["security"=>"is_granted('ROLE_ADMIN')"],
@@ -22,9 +24,11 @@ class Mot
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(["read"])]
     #[ORM\Column(length: 100)]
     private ?string $motAnglais = null;
 
+    #[Groups(["read"])]
     #[ORM\Column(length: 100)]
     private ?string $motFrancais = null;
 
