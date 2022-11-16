@@ -18,6 +18,7 @@ var ecranVisible = ecrans[index];
 const longueurListeMot = ecrans.length - 2;
 var listeDeMot = [];
 var listeReponse = [];
+var listeFausseReponse = [];
 var score = 0;
 var urlSite = 'http://s3-4440.nuage-peda.fr/Inno-v-Anglais/InovApi/public/api/';
 // lien vps : https://tanguy.ozano.ovh/Inno-v-Anglais/public/api/
@@ -102,9 +103,12 @@ function calulNote() {
     for (let i = 0; i < listeDeMot.length; i++) {
         if (listeReponse.includes(listeDeMot[i])) {
             score++;
+        } else {
+            listeFausseReponse.push(listeDeMot[i]);
         }
     }
     nbScore.innerHTML = score;
+    console.log(listeFausseReponse);
 }
 
 //Evite les erreurs de case
