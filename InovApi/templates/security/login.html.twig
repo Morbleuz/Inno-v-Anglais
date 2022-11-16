@@ -3,36 +3,39 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+
 <form method="post">
 
     {% if app.user %}
-    <div class="mb-3">
+    <div class="mb-3 content">
         You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
     </div>
     {% endif %}
-
-    <section class="h-100 gradient-form" style="background-color: #eee;">
+    <!--row d-flex justify-content-center align-items-center h-100 -->
+    <section class="h-100">
         <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="row d-flex justify-content-center align-items-center">
                 <div class="col-xl-10">
-                    <div class="card rounded-3 text-black">
+                    <div class="card rounded-3 text-black connect-box">
                         <div class="row g-0">
                             <div class="col-lg-6">
-                                <div class="card-body p-md-5 mx-md-4">
+                                <div class="card-body p-md-5 mx-md-4 color-left">
 
                                     <div class="text-center">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp" style="width: 185px;" alt="logo">
+                                        <img src="./assets/logo.png" style="width: 185px;" alt="logo">
                                         <h4 class="mt-1 mb-5 pb-1">Nous sommes Innov'Anglais</h4>
                                     </div>
 
                                     <form>
-                                        <p>Merci de vous connectez avec vôtre compte</p>
+                                        <p>Merci de vous connectez avec votre compte</p>
 
                                         <div class="form-outline mb-4">
-                                            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus placeholder="Nom d'utilisateur" />
+                                            <b>Login</b>
+                                            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus placeholder="Login" />
                                         </div>
 
                                         <div class="form-outline mb-4">
+                                            <b>Mot de passe</b>
                                             <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe" />
                                         </div>
                                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
@@ -41,20 +44,25 @@
                                         {% endif %}
 
                                         <div class="text-center pt-1 mb-5 pb-1">
+<<<<<<< HEAD
                                             <button class="btn btn-primary btn-block fa-lg bg-danger mb-3" type="submit" id="connect">Se connecter</button>
+=======
+                                            <button class="btn btn-primary btn-block fa-lg mb-3" type="submit">Se connecter</button>
+>>>>>>> 53300a6e12f7618a25e69d07d078c3de7d9be058
                                         </div>
 
                                         <div class="d-flex align-items-center justify-content-center pb-4">
                                             <p class="mb-0 me-2">Vous n'avez pas de compte ?</p>
-                                            <button type="button" class="btn btn-outline-danger">Se créer un compte</button>
+                                            <a href="#">Se créer un compte</a>
                                         </div>
 
                                     </form>
 
                                 </div>
                             </div>
-                            <div class="col-lg-6 d-flex align-items-center bg-danger">
+                            <div class="col-lg-6 d-flex align-items-center instyle">
                                 <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                                    <div class="connect-box"></div>
                                     <h4 class="mb-4">Nous sommes bien plus qu'une simple application</h4>
                                     <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                                         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
