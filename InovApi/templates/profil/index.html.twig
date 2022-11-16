@@ -65,7 +65,7 @@
         </thead>
         <tbody>
             {% for resultat in app.user.resultats | sort((a, b) => b.date <=> a.date)%}
-            <tr class="{{ cycle(['table-black', 'table-secondary'], loop.index0) }}">
+            <tr class="{{ cycle(['table-dark', 'table-secondary'], loop.index0) }}">
                 <td>{{resultat.date | date("d-m-Y")}}
                 </td>
                 <td>{{resultat.test.niveau | capitalize}}
