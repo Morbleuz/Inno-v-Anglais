@@ -17,6 +17,20 @@ find $DOSSIER -not -regex .*\.gitignore$ -type f -exec rm {} \; 2> /dev/null
 find $DOSSIER -not -regex $DOSSIER -type d -exec rm -fr {} \; 2> /dev/null
 
 # On installe une toute nouvelle base de donnée
-./innovAngSetup
+ICI=$(pwd)
+
+cd ../
+# La création de la base de donnée et de ses tables
+
+# Création d'une base de donnée et de son utilisateur attitré'
+php bin/console doctrine:database:create
+php bin/console make:migration
+php bin/console doctrine:migration:migrate
+
+php bin/console doctrine:fixtures:load
+
+echo "Les tables ont été remplies"
+
+cd $ICI
 
 echo "La base de donnée a été remise à zéro"

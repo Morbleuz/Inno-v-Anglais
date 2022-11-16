@@ -1,0 +1,201 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mots
+{% endblock %}
+
+{% block body %}
+<div class='container'>
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0" style='display:none;' id="editing">
+                    <p>                    
+                        <div class="input-group mb-3" >
+                            <input id="themeEdit" aria-label="" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Envoyer</button>
+                        </div>
+
+                        <img src='{{ asset('assets/add.png') }}' class='deletepermmodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    </p>
+                </h5>
+                <h5 class="mb-0" id="notediting">
+                    <p>
+                        <em>Ajouter</em>
+                        <img src='{{ asset('assets/add.png') }}' id='deletepermmodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    </p>
+                </h5>
+            </div>
+        </div>
+        {% for theme in listeTheme %}
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0" style='display:none;' id="{{theme.id}}editing">
+                        <p>                    
+                            <div class="input-group mb-3">
+                                <img src='{{ asset('assets/close.png') }}' id="removeEdit" accessKey="{{theme.id}}" height='24' width='24' align='center'>
+                                <input id="themeEdit" placeholder="{{theme.theme}}" aria-label="{{theme.theme}}" aria-describedby="button-addon2" data-bs-toggle="collapse" data-bs-target="#collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" aria-expanded="false" aria-controls="collapse{{theme.theme|replace({' ': "-", "'": "-"})}}">
+                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Envoyer</button>
+                            </div>
+
+                            <img src='{{ asset('assets/delete-perm.png') }}' class='deletepermmodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <img src='{{ asset('assets/delete.png') }}' class='deletemodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <img src='{{ asset('assets/edit.png') }}' class='editmodal' height='36' width='36' align='right' name='{{theme.id}}'>
+                        </p>
+                    </h5>
+                    <h5 class="mb-0" id="{{theme.id}}notediting">
+                        <p>
+                            <strong id='{{theme.id}}' data-bs-toggle="collapse" data-bs-target="#collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" aria-expanded="false" aria-controls="collapse{{theme.theme|replace({' ': "-", "'": "-"})}}">{{theme.theme}}</strong>
+
+                            <img src='{{ asset('assets/delete-perm.png') }}' id='deletepermmodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <img src='{{ asset('assets/delete.png') }}' id='deletemodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <img src='{{ asset('assets/edit.png') }}' id='editmodal' height='36' width='36' align='right' name='{{theme.id}}'>
+                        </p>
+                    </h5>
+                </div>
+
+                <div id="collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" class="collapse" data-bs-parent="#accordion">
+                    <div class="card card-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nom Francais</th>
+                                    <th>Nom Anglais</th>
+                                    <th class="themeEdit" style="display:none;">Theme</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <form id="motForm" path="{{ path('app_mots') }}" method="POST">
+                                {% for mot in theme.mots %}
+                                    <tr>
+                                        <input type="hidden" name="id" value="{{mot.id}}"></input>
+                                        <td>
+                                            <text id="edit1-{{mot.id}}">{{mot.motFrancais}}</text>
+                                            <textarea class='motToEdit' id='edit3-{{mot.id}}' style='resize: none; display:none;' name="motFrancais" rows='1' title="{{mot.motFrancais}}">{{mot.motFrancais}}</textarea>
+                                        </td>
+                                        <td>
+                                            <text id="edit2-{{mot.id}}">{{mot.motAnglais}}</text>
+                                            <textarea class='motToEdit' id='edit4-{{mot.id}}' style='resize: none; display:none;' name="motAnglais" rows='1' title="{{mot.motAnglais}}">{{mot.motAnglais}}</textarea>
+                                        </td>
+                                        <td class="themeEdit" style="display:none;">
+                                            <select selected='{{theme.theme}}'>
+                                                {% for themes in listeTheme %}
+                                                <option title="{{themes.theme}}">{{themes.theme}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                        <td><img src='{{ asset('assets/edit.png') }}' class="editMot" id="{{mot.id}}" height='24' width='24' align='right'></td>
+                                        <td><img src='{{ asset('assets/delete.png') }}' height='24' width='24' align='right'></td>
+                                    </tr>
+                                {% endfor %}
+                                </form>
+                            </tbody>
+                        </table>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button class="btn btn-info" type="button" id='addNouveauMot' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                <img src='{{ asset('assets/add.png') }}' class='addnew' height='24' width='24' align='right'>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Voulez-vous vraiment 
+        <strong id='modalAction'></strong>
+         définitivement 
+        
+         ainsi que les mots 
+        <p name="modalMot" id="modalMot"> </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary">Confirmer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $(".editMot").click(function () {
+        if ($(this)[0].accessKey === 'done')
+        {
+            $(".themeEdit").hide();
+            $("#edit1-" + $(this)[0].id).show();
+            $("#edit2-" + $(this)[0].id).show();
+            $("#edit3-" + $(this)[0].id).hide();
+            //if ($("#edit3-" + $(this)[0].id).title != $("#edit3-" + $(this)[0].id).value)
+            //{
+                console.log("title = " + $("#edit3-" + $(this)[0].id)[0].title);
+                console.log("html = " + $("#edit3-" + $(this)[0].id)[0].value);
+                $('#motForm').submit();
+            //}
+            $("#edit4-" + $(this)[0].id).hide();
+            console.log($("#edit3-" + $(this)[0].id));
+            $(this)[0].src = "{{ asset('assets/edit.png') }}";
+            $(this)[0].accessKey = 'edit';
+        }
+        else
+        {
+            $(".themeEdit").show();
+            $("#edit1-" + $(this)[0].id).hide();
+            $("#edit2-" + $(this)[0].id).hide();
+            $("#edit3-" + $(this)[0].id).show();
+            $("#edit4-" + $(this)[0].id).show();
+            $(this)[0].src = "{{ asset('assets/done.png') }}";
+            $(this)[0].accessKey = 'done';
+        }
+    });
+
+    $("#removeEdit").click(function () {
+        $("#" + $(this)[0].accessKey + 'editing').hide();
+        $("#" + $(this)[0].accessKey + 'notediting').show();
+    });
+    $("#editmodal").click(function () {
+        console.log($('#' + $(this)[0].name + 'editing'));
+        toggleThemeEdit('#' + $(this)[0].name);
+    });
+
+    $("#deletemodal").click(function () {
+        $('#modalAction').text('supprimer');
+        $('#modalMot').text('test');
+    });
+    $("#deletepermmodal").click(function () {
+        $('#modalAction').text('supprimer');
+        $('#modalMot').text('test');
+    });
+
+    $("#addNouveauMot").click(function () {
+        $('#modalAction').text('ajouter');
+        $('#modalMot').text('text');
+    });
+
+    function toggleThemeEdit(name)
+    {
+        if ($(name + 'editing')[0].style.display === 'none')
+        {
+            $(name + 'notediting').hide();
+            $(name + 'editing').show();
+        }
+        else
+        {
+            $(name + 'editing').hide();
+            $(name + 'notediting').show();
+        }
+       //console.log($(name + 'editing'));
+    }
+});
+</script>
+{% endblock %}
