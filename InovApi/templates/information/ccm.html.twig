@@ -3,12 +3,12 @@
 
 <div class="ccm" style="margin-top: 10%">
 
-    <div class="page-header mt-5 m-5 container ">
-        <h1 class="text-white m-5">Innov'Anglais, c'est quoi ?</h1>
+    <div class="page-header container text-white">
+        <h1 class=" text-white m-5">Innov'Anglais, c'est quoi ?</h1>
         <p class="container m-5 text-white">
             Le site Innov'Anglais a pour but de faciliter l'apprentissage de l'Anglais, de manière éducatif et sans prise de tête.
             <br>Avec Innov'Anglais, testé vos connaissances linguistiques grâce à notre outil situé en page
-            "<a href="{{path('app_apprendre')}}">Apprendre</a>".
+            "<a href="{{path('app_test')}}">Apprendre</a>".
 
 
             <br>
@@ -19,6 +19,11 @@
             Il vous suffit de choisir un test parmis les {{lesTests|length}} disponibles.
             <br>
             À la fin de ce test le résultat vous sera affiché
+            <br>
+            Une fois vos tests terminés, vous pouvez suivre votre progression dans l'onglet
+            "<a href="{{path('app_profil')}}">Mon profil</a>".
+            <br>
+            Un classement général vous est mis a disposition dans l'onglet "<a href="{{path('app_classement')}}">Classement</a>".
         </p>
 
     </div>

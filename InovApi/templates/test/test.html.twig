@@ -1,12 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Nouveau test !{% endblock %}
-
 {% block body %}
 <div>
     <input id="id" type="hidden" data-liste-id="{{liste.id}}" data-test-id="{{test.id}}" data-user-id="{{app.user.id}}">
 
-    <div class="container text-center ecran">
+    <div class="container text-center bg-dark p-2 text-white bg-opacity-25 ecran mt-3">
         <h1>Welcome to new test 📚</h1>
         <p>Vous allez effectuer un test niveau '{{test.niveau}}'</p>
         <p>Le thème de ce test est '{{liste.theme}}'</p>
@@ -15,7 +14,7 @@
     </div>
 
     {% for mot in liste.mots %}
-    <div class="container text-center p-2 ecran">
+    <div class="container text-center bg-dark p-2 text-white bg-opacity-25 ecran mt-3">
         <p>Le mot à traduire est '<strong>{{mot.motanglais}}</strong>'</p>
         <input class="inputReponse" type="text" placeholder="Saisir la réponse" /><br>
         <button class="btn btn-primary m-2 boutonSuivant" disabled>Suivant</button>
@@ -25,12 +24,16 @@
     <div class="container text-center p-2 ecran">
         <p>Vous avez obtenu un résultat de <span id="nbScore">10</span>/<span id="nombreDeMots">20</span>
         </p>
-        <a href="{{path('app_base')}}"><button class="btn btn-primary m-2">Revenir au menu</button></a>
+        <a href="{{path('app_test')}}"><button class="btn btn-primary m-2">Revenir au menu</button></a>
     </div>
 </div>
 
-<script type="text/javascript" src="{{ asset('js/scriptTest.js') }}">
 
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('js/scriptTest.js') }}">
 </script>
 
 {% endblock %}

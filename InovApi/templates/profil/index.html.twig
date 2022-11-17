@@ -4,79 +4,79 @@
 {% endblock %}
 
 {% block body %}
-	{% if app.user is defined %}
-		{{form_start(form)}}
-		<div class="container rounded bg-white mt-5 mb-5 connect-box" style="margin-top: 7%">
-			<h1 class="text-center">Bienvenue sur votre profil :
-				{{app.user.prenom}}
-				!</h1>
-			<p class="text-center">Vous avez cumulé plus de
-				<strong class="text-danger">{{app.user.scoreTotal}}</strong>
-				points sur notre site, bravo !</p>
-			<div class="container pr-5 pl-5">
-				<div class="p-3 py-5">
-					<div class="d-flex justify-content-between align-items-center mb-3">
-						<h3 class="text-right ">Modification de vos informations :</h4>
-					</div>
-					<div class="row mt-2">
-						<div class="col-md-6">
-							<label for="nom" class="labels">Nom</label>
-							{{form_widget(form.nom)}}
+{% if app.user is defined %}
+{{form_start(form)}}
+<div class="container rounded mt-5 mb-5 connect-pro card cardup-log" style="margin-top: 7%">
+
+    <h1 class="text-center">Bienvenue sur votre profil,
+        {{app.user.prenom}}
+        !</h1>
+    <p class="text-center">Vous avez cumulé plus de
+        <strong class="text-danger">{{app.user.scoreTotal}}</strong>
+        points sur notre site, bravo !</p>
+    <div class="container pr-5 pl-5">
+        <div class="p-3 py-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="text-right ">Modification de vos informations :</h4>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label for="nom" class="labels">Nom</label>
+                    {{form_widget(form.nom)}}
 
 
-						</div>
-						{{ form_row(form._token) }}
-						<div class="col-md-6">
-							<label for="nom" class="labels">Prénom</label>
+                </div>
+                {{ form_row(form._token) }}
+                <div class="col-md-6">
+                    <label for="nom" class="labels">Prénom</label>
 
-							{{form_widget(form.prenom)}}
+                    {{form_widget(form.prenom)}}
 
-						</div>
-					</div>
-					<div
-						class="row mt-3"><!--
+                </div>
+            </div>
+            <div class="row mt-3">
+                <!--
 							                <div class="col-md-12">
 							                    <label for="nom" class="labels">Identifiant</label>
 							
 							
 							                </div>
 							                -->
-					</div>
+            </div>
 
-					<div class="mt-5 text-center">
-						{{form_widget(form.submit)}}
-					</div>
-				</div>
-			</div>
-			{% if app.user.resultats is empty %}
-				<h3 class="text-center">Vous n'avez pas encore de résultats, try to learn now.</h3>
-			{% else %}
-				<table class="table caption-top">
-					<caption>Voici vos résultats :</caption>
-					<thead>
-						<tr>
-							<td>
-								Date</td>
-							<td>
-								Niveau
-							</td>
-							<td>Note</td>
-						</tr>
-					</thead>
-					<tbody>
-						{% for resultat in app.user.resultats | sort((a, b) => b.date <=> a.date)%}
-							<tr class="{{ cycle(['table-black', 'table-secondary'], loop.index0) }}">
-								<td>{{resultat.date | date("d-m-Y")}}
-								</td>
-								<td>{{resultat.test.niveau | capitalize}}
-								</td>
-								<td>{{resultat.score}}/{{resultat.test.lier.mots|length}}</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-			{% endif %}
-		</div>
-	{% endif %}
+            <div class="mt-5 text-center">
+                {{form_widget(form.submit)}}
+            </div>
+        </div>
+    </div>
+    {% if app.user.resultats is empty %}
+    <h3 class="text-center">Vous n'avez pas encore de résultats, try to learn now.</h3>
+    {% else %}
+    <table class="table caption-top">
+        <caption>Voici vos résultats :</caption>
+        <thead>
+            <tr>
+                <td>
+                    Date</td>
+                <td>
+                    Niveau
+                </td>
+                <td>Note</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for resultat in app.user.resultats | sort((a, b) => b.date <=> a.date)%}
+            <tr class="{{ cycle(['table-dark', 'table-secondary'], loop.index0) }}">
+                <td>{{resultat.date | date("d-m-Y")}}
+                </td>
+                <td>{{resultat.test.niveau | capitalize}}
+                </td>
+                <td>{{resultat.score}}/{{resultat.test.lier.mots|length}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endif %}
 {% endblock %}
-

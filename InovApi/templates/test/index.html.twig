@@ -1,41 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TestController!
+{% block title %}Choisir un test
 {% endblock %}
 
 {% block body %}
-	<div class="container text-center content">
-		<h1>Il y a actuellement
-			{{lesTests|length}}
-			tests de disponibles</h1>
-		<p>Cliquez sur l'un des test pour commencer !</p>
-	</div>
-	{% set index = 1 %}
+<div class="container cardup-log" style="margin-top: 5%">
+    <div class="container text-center">
+        <h1>Il y a actuellement
+            {{lesTests|length}}
+            tests de disponibles</h1>
+        <p>Cliquez sur l'un des test pour commencer !</p>
+    </div>
+    {% set index = 1 %}
 
-	<table class="table table-bordered caption-top navstyle">
-		<thead>
-			<tr>
-				<td>
-					Niveau</td>
-				<td>
-					Thème
-				</td>
-			</tr>
-		</thead>
-		<tbody>
-			{% for test in lesTests | sort((a, b) => a.niveau <=> b.niveau)%}
-				<tr class="{{ cycle(['navstyle', 'table-secondary'], loop.index0) }}">
-					<td>{{test.niveau | capitalize}}
-					</td>
-					<td>
-						<a href="{{ path('app_test_id', {'id':test.id}) }}" class="text-black">
-							{{test.lier.theme | capitalize}}
-						</a>
-					</td>
-				</tr>
-				{% set index = index + 1 %}
-			{% endfor %}
-		</tbody>
-	</table>
+    <table class="table table-bordered caption-top">
+        <thead>
+            <tr>
+                <td>
+                    Niveau</td>
+                <td>
+                    Thème
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for test in lesTests | sort((a, b) => a.niveau <=> b.niveau)%}
+            <tr class="{{ cycle(['navstyle', 'table-secondary'], loop.index0) }}">
+                <td>{{test.niveau | capitalize}}
+                </td>
+                <td>
+                    <a href="{{ path('app_test_id', {'id':test.id}) }}" class="text-black">
+                        {{test.lier.theme | capitalize}}
+                    </a>
+                </td>
+            </tr>
+            {% set index = index + 1 %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 {% endblock %}
-

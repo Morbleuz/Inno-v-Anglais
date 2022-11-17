@@ -18,8 +18,9 @@ var ecranVisible = ecrans[index];
 const longueurListeMot = ecrans.length - 2;
 var listeDeMot = [];
 var listeReponse = [];
+var listeFausseReponse = [];
 var score = 0;
-var urlSite = 'http://s3-4426.nuage-peda.fr/Inno-v-Anglais/InovApi/index.php/api/';
+var urlSite = 'http://s3-4440.nuage-peda.fr/Inno-v-Anglais/InovApi/public/api/';
 // lien vps : https://tanguy.ozano.ovh/Inno-v-Anglais/public/api/
 
 nombreMot.innerHTML = longueurListeMot;
@@ -43,7 +44,7 @@ function envoieResultat() {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
         url: urlSite + "resultats",
-        //        url: "http://s3-4440.nuage-peda.fr/Inno-v-Anglais/InovApi/public/api/resultats",
+        //        url: "http://s3-4435.nuage-peda.fr/Inno-v-Anglais/InovApi/public/api/resultats",
         method: "POST",
         data: JSON.stringify({
             score: score,
@@ -102,9 +103,12 @@ function calulNote() {
     for (let i = 0; i < listeDeMot.length; i++) {
         if (listeReponse.includes(listeDeMot[i])) {
             score++;
+        } else {
+            listeFausseReponse.push(listeDeMot[i]);
         }
     }
     nbScore.innerHTML = score;
+    console.log(listeFausseReponse);
 }
 
 //Evite les erreurs de case
@@ -173,7 +177,7 @@ function showEcranVisible() {
 function ajouteEventListener() {
     $('.inputReponse').on("change keyup paste", checkIfEcranValide)
     for (inputResponse of inputReponses) {
-        //inputResponse.addEventListener('change', checkIfEcranValide)
+        inputResponse.addEventListener('change', checkIfEcranValide);
 
     }
     for (bouton of boutonSuivant) {

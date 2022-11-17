@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{'./asset/favicon.ico'}}" type="image/x-icon">
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -13,7 +13,7 @@
     {% block stylesheets %}
     <!-- Bootstrap CSS -->
     <link href="https://bootswatch.com/5/lumen/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
+    <link href="{{asset('./css/style.css')}}" rel="stylesheet">
     {% endblock %}
     <title>Innov'Anglais - {% block title %}{% endblock %}</title>
     {% block form %}{% endblock %}
@@ -26,7 +26,7 @@
     <nav class="navbar navbar-expand-lg navstyle">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{path('app_base')}}">
-                <img src="./assets/logo.png" alt="Innov'Anglais" style="width:100px;height:70px;">
+                <img src="{{'./assets/logo.png'}}" alt="Innov'Anglais" style="width:100px;height:70px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -39,8 +39,11 @@
                             <span class="visually-hidden">(current)</span>
                         </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{{path('app_apprendre')}}">Apprendre</a>
+                        <a class="nav-link" href="{{path('app_test')}}">
+                            Apprendre
+                        </a>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -66,9 +69,10 @@
                             Mon profil
                         </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{{path('app_test')}}">
-                            Faire des tests
+                        <a class="nav-link" href="{{path('app_classement')}}">
+                            Classement
                         </a>
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
@@ -104,12 +108,12 @@
     {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     {% endblock %}
-    <article class="content connect-art" style="margin-top: 12%">
+    <article class="footer connect-art">
         <footer id="footer">
-            2021. This web page is open source, go check out the source of this page on  <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Github</a>.
-        </footer>      
+            <br> 2022. Ce site a était fait par les SIO 2D, plus précisemment par <a href="{{path ('app_information')}}">cet équipe</a>.
+        </footer>
     </article>
-    
+
 </body>
 
 

@@ -6,7 +6,7 @@
 {% block body %}
 <div class='container' style="margin-top: 5%">
     <div id="accordion">
-        <div class="card">
+        <div class="card connect-box">
             <div class="card-header">
                 <h5 class="mb-0">
                     <p>
@@ -57,7 +57,7 @@
             </div>
         </div>
         {% for theme in listeTheme %}
-            <div class="card">
+            <div class="card connect-box">
                 <div class="card-header">
                     <h5 class="mb-0" style='display:none;' id="{{theme.id}}editing">
                         <p>                    
@@ -67,31 +67,49 @@
                                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">Envoyer</button>
                             </div>
 
-                            <img src='{{ asset('assets/delete-perm.png') }}' class='deletepermmodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            <img src='{{ asset('assets/delete.png') }}' class='deletemodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            <img src='{{ asset('assets/edit.png') }}' class='editmodal' height='36' width='36' align='right' name='{{theme.id}}'>
-                        </p>
-                    </h5>
-                    <h5 class="mb-0" id="{{theme.id}}notediting">
-                        <p>
-                            <strong id='{{theme.id}}' data-bs-toggle="collapse" data-bs-target="#collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" aria-expanded="false" aria-controls="collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" style="cursor: pointer;">{{theme.theme}}</strong>
+                        <img src='{{ asset('assets/delete-perm.png') }}' class='deletepermmodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <img src='{{ asset('assets/delete.png') }}' class='deletemodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <img src='{{ asset('assets/edit.png') }}' class='editmodal' height='36' width='36' align='right' name='{{theme.id}}'>
+                    </p>
+                </h5>
+                <h5 class="mb-0" id="{{theme.id}}notediting">
+                    <p>
+                        <strong id='{{theme.id}}' data-bs-toggle="collapse" data-bs-target="#collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" aria-expanded="false" aria-controls="collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" style="cursor: pointer;">{{theme.theme}}</strong>
 
-                            <img src='{{ asset('assets/delete-perm.png') }}' id='deletepermmodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer;">
-                            <img src='{{ asset('assets/delete.png') }}' id='deletemodal' accessKey="{{theme.theme}}" height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer;">
-                            <img src='{{ asset('assets/edit.png') }}' id='editmodal' height='36' width='36' align='right' name='{{theme.id}}' style="cursor: pointer;">
-                        </p>
-                    </h5>
-                </div>
+                        <img src='{{ asset('assets/delete-perm.png') }}' id='deletepermmodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer;">
+                        <img src='{{ asset('assets/delete.png') }}' id='deletemodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer;">
+                        <img src='{{ asset('assets/edit.png') }}' id='editmodal' height='36' width='36' align='right' name='{{theme.id}}' style="cursor: pointer;">
+                    </p>
+                </h5>
+            </div>
 
-                <div id="collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" class="collapse" data-bs-parent="#accordion">
-                    <div class="card card-body">
-                        <table>
-                            <thead>
+            <div id="collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" class="collapse connect-box" data-bs-parent="#accordion">
+                <div class="card card-body connect-box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nom Francais</th>
+                                <th>Nom Anglais</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for mot in theme.mots %}
+                            <form id="motForm{{mot.id}}" path="{{ path('app_mots') }}" method="POST">
                                 <tr>
-                                    <th>Nom Francais</th>
-                                    <th>Nom Anglais</th>
-                                    <th></th>
-                                    <th></th>
+                                    <input type="hidden" name="type" value="editMot"></input>
+                                    <input type="hidden" name="id" value="{{mot.id}}"></input>
+                                    <td>
+                                        <text id="edit1-{{mot.id}}">{{mot.motFrancais}}</text>
+                                        <textarea class='motToEdit' id='edit3-{{mot.id}}' style='resize: none; display:none;' name="motFrancais" rows='1' title="{{mot.motFrancais}}">{{mot.motFrancais}}</textarea>
+                                    </td>
+                                    <td>
+                                        <text id="edit2-{{mot.id}}">{{mot.motAnglais}}</text>
+                                        <textarea class='motToEdit' id='edit4-{{mot.id}}' style='resize: none; display:none;' name="motAnglais" rows='1' title="{{mot.motAnglais}}">{{mot.motAnglais}}</textarea>
+                                    </td>
+                                    <td><img src='{{ asset('assets/edit.png') }}' class="editMot" id="{{mot.id}}" height='24' width='24' align='right' style="cursor: pointer;"></td>
+                                    <td><img src='{{ asset('assets/delete.png') }}' class="deleteMot" id="{{mot.id}}" accessKey="{{mot.motFrancais}}" height='24' width='24' align='right' style="cursor: pointer;"></td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -118,64 +136,61 @@
                     </div>
                 </div>
             </div>
+        </div>
         {% endfor %}
     </div>
 </div>
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <form id="modalForm" path="{{ path('app_mots') }}" method="POST">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Voulez-vous vraiment
-                <strong id='modalAction'></strong>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="modalForm" path="{{ path('app_mots') }}" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Voulez-vous vraiment
+                    <strong id='modalAction'></strong>
                     définitivement
-                <p name="modalMot" id="modalMot"></p>
-                <input id="modalID" name="id" type="hidden"></input>
-                <input id="modalType" name="type" type="hidden" value="deleteMot"></input>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-danger" id="confirmDelete">Confirmer</button>
-            </div>
-        </form>
+                    <p name="modalMot" id="modalMot"></p>
+                    <input id="modalID" name="id" type="hidden"></input>
+                    <input id="modalType" name="type" type="hidden" value="deleteMot"></input>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-danger" id="confirmDelete">Confirmer</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 
 <script>
-$(document).ready(function(){
-    $(".editMot").click(function () {
-        if ($(this)[0].accessKey === 'done')
-        {
-            $("#edit1-" + $(this)[0].id).show();
-            $("#edit2-" + $(this)[0].id).show();
-            $("#edit3-" + $(this)[0].id).hide();
-            $("#edit4-" + $(this)[0].id).hide();
-            if (($("#edit3-" + $(this)[0].id)[0].title !== $("#edit3-" + $(this)[0].id)[0].value) || ($("#edit4-" + $(this)[0].id)[0].title !== $("#edit4-" + $(this)[0].id)[0].value))
-            {
-                console.log($("#edit3-" + $(this)[0].id)[0].title);
-                console.log($("#edit3-" + $(this)[0].id)[0].value);
-                $('#motForm' + $(this)[0].id).submit();
+    $(document).ready(function() {
+        $(".editMot").click(function() {
+            if ($(this)[0].accessKey === 'done') {
+                $("#edit1-" + $(this)[0].id).show();
+                $("#edit2-" + $(this)[0].id).show();
+                $("#edit3-" + $(this)[0].id).hide();
+                $("#edit4-" + $(this)[0].id).hide();
+                if (($("#edit3-" + $(this)[0].id)[0].title !== $("#edit3-" + $(this)[0].id)[0].value) || ($("#edit4-" + $(this)[0].id)[0].title !== $("#edit4-" + $(this)[0].id)[0].value)) {
+                    console.log($("#edit3-" + $(this)[0].id)[0].title);
+                    console.log($("#edit3-" + $(this)[0].id)[0].value);
+                    $('#motForm' + $(this)[0].id).submit();
+                }
+                console.log($("#edit3-" + $(this)[0].id));
+                $(this)[0].src = "{{ asset('assets/edit.png') }}";
+                $(this)[0].accessKey = 'edit';
+            } else {
+                $("#edit1-" + $(this)[0].id).hide();
+                $("#edit2-" + $(this)[0].id).hide();
+                $("#edit3-" + $(this)[0].id).show();
+                $("#edit4-" + $(this)[0].id).show();
+                $(this)[0].src = "{{ asset('assets/done.png') }}";
+                $(this)[0].accessKey = 'done';
             }
-            console.log($("#edit3-" + $(this)[0].id));
-            $(this)[0].src = "{{ asset('assets/edit.png') }}";
-            $(this)[0].accessKey = 'edit';
-        }
-        else
-        {
-            $("#edit1-" + $(this)[0].id).hide();
-            $("#edit2-" + $(this)[0].id).hide();
-            $("#edit3-" + $(this)[0].id).show();
-            $("#edit4-" + $(this)[0].id).show();
-            $(this)[0].src = "{{ asset('assets/done.png') }}";
-            $(this)[0].accessKey = 'done';
-        }
-    });
+        });
 
     $("#addlisttheme").click(function () {
         texte = "<select class='selectTheme' selected='Aucun'><option>Aucun</option>{% for themes in listeTheme %}<option>{{themes.theme}}</option>{% endfor %}</select><br>";
@@ -201,14 +216,14 @@ $(document).ready(function(){
         $('#modalForm').submit();
     });
 
-    $("#removeEdit").click(function () {
-        $("#" + $(this)[0].accessKey + 'editing').hide();
-        $("#" + $(this)[0].accessKey + 'notediting').show();
-    });
-    $("#editmodal").click(function () {
-        console.log($('#' + $(this)[0].name + 'editing'));
-        toggleThemeEdit('#' + $(this)[0].name);
-    });
+        $("#removeEdit").click(function() {
+            $("#" + $(this)[0].accessKey + 'editing').hide();
+            $("#" + $(this)[0].accessKey + 'notediting').show();
+        });
+        $("#editmodal").click(function() {
+            console.log($('#' + $(this)[0].name + 'editing'));
+            toggleThemeEdit('#' + $(this)[0].name);
+        });
 
     $("#deletemodal").click(function () {
         $('#modalAction').text('supprimer');
@@ -220,25 +235,21 @@ $(document).ready(function(){
         $('#modalMot').text('test');
     });
 
-    $("#addNouveauMot").click(function () {
-        $('#modalAction').text('ajouter');
-        $('#modalMot').text('text');
-    });
+        $("#addNouveauMot").click(function() {
+            $('#modalAction').text('ajouter');
+            $('#modalMot').text('text');
+        });
 
-    function toggleThemeEdit(name)
-    {
-        if ($(name + 'editing')[0].style.display === 'none')
-        {
-            $(name + 'notediting').hide();
-            $(name + 'editing').show();
+        function toggleThemeEdit(name) {
+            if ($(name + 'editing')[0].style.display === 'none') {
+                $(name + 'notediting').hide();
+                $(name + 'editing').show();
+            } else {
+                $(name + 'editing').hide();
+                $(name + 'notediting').show();
+            }
+            //console.log($(name + 'editing'));
         }
-        else
-        {
-            $(name + 'editing').hide();
-            $(name + 'notediting').show();
-        }
-       //console.log($(name + 'editing'));
-    }
-});
+    });
 </script>
 {% endblock %}
