@@ -36,33 +36,41 @@ class MotsController extends AbstractController
         }
         else if ($formTheme->isSubmitted() && $formTheme->isValid())
         {
-            
-        }
-        else if ($request->request->get('type') == 'editMot')
-        {
-            $formID = $request->request->get('id');
-            $motFrancais = $request->request->get('motFrancais');
-            $motAnglais = $request->request->get('motAnglais');
-            //$appartenir = $request->request->get('motAnglais');
-
-            $mot = $this->getDoctrine()->getRepository(Mot::class)->findOneByID($formID);
-            $mot->setMotAnglais($motAnglais);
-            $mot->setMotFrancais($motFrancais);
-            
+            $liste->setTheme($formTheme->get('theme')->getData());
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($mot);
+            $em->persist($liste);
             $em->flush();
         }
-        else if ($request->request->get('type') == 'deleteMot')
+        else 
         {
-            $formID = $request->request->get('id');
+            switch($request->request->get('type'))
+            {
+                case 'editMot':
+                    $formID = $request->request->get('id');
+                    $motFrancais = $request->request->get('motFrancais');
+                    $motAnglais = $request->request->get('motAnglais');
+                    //$appartenir = $request->request->get('');
+        
+                    $mot = $this->getDoctrine()->getRepository(Mot::class)->findOneByID($formID);
+                    $mot->setMotAnglais($motAnglais);
+                    $mot->setMotFrancais($motFrancais);
+        
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($mot);
+                    $em->flush();
 
-            $mot = $this->getDoctrine()->getRepository(Mot::class)->findOneByID($formID);
+                case 'deleteMot':
+                    $formID = $request->request->get('id');
 
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($mot);
-            $em->flush();
+                    $mot = $this->getDoctrine()->getRepository(Mot::class)->findOneByID($formID);
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->remove($mot);
+                    $em->flush();
+                case 'deleteTheme':
+                    
+            }
         }
 
         return $this->render('mots/mots.html.twig', [

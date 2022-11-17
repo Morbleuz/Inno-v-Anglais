@@ -8,22 +8,52 @@
     <div id="accordion">
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0" style='display:none;' id="editing">
-                    <p>                    
-                        <div class="input-group mb-3" >
-                            <input id="themeEdit" aria-label="" aria-describedby="button-addon2">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Envoyer</button>
-                        </div>
-
-                        <img src='{{ asset('assets/add.png') }}' class='deletepermmodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    </p>
-                </h5>
-                <h5 class="mb-0" id="notediting">
+                <h5 class="mb-0">
                     <p>
-                        <em>Ajouter</em>
-                        <img src='{{ asset('assets/add.png') }}' id='deletepermmodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <em id="ajouterButton" data-bs-toggle="collapse" data-bs-target="#collapseAdd" aria-expanded="false" aria-controls="collapseAdd" style="cursor: pointer;">Ajouter</em>
+                        <img src='{{ asset('assets/add.png') }}' id='addimg' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     </p>
                 </h5>
+            </div>
+            <div id="collapseAdd" class="collapse" data-bs-parent="#accordion">
+                <form id="themeMotForm" path="{{ path('app_mots') }}" method="POST">
+                    <div class="card card-body">
+                        <strong>Thème</strong>
+                        <hr size="1" width="550">
+                        <div class="input-group mb-3">
+                        {{ form_start(formTheme) }}
+                        {{ form_row(formTheme.theme, {
+                            'attr': {
+                                'style': 'resize: none; display: inline-flex;',
+                                'name': "themeadd",
+                                'placeholder': "Thème",
+                                'aria-describedby': "addThemeBtn"
+                            }
+                        }) }}
+                        <div class="input-group-append"><br>
+                            <button id="addThemeBtn" type="submit" class="btn btn-primary btn-sm" style="display:inline-block;">Ajouter</button>
+                        </div>
+                        {{ form_end(formTheme) }}
+
+                        </div>
+                        <strong>Mot</strong>
+                        <hr size="1" width="550">
+                        <div class="mb-3">
+                            <textarea id='motadd1' style='resize: none;' name="motAnglais" rows='1' placeholder="Mot Anglais"></textarea><br>
+                            <textarea id='motadd2' style='resize: none;' name="motFrancais" rows='1' placeholder="Mot Francais"></textarea><br>
+                            <select class="selectTheme" selected="Aucun">
+                                <option>Aucun</option>
+                                {% for themes in listeTheme %}
+                                    <option>{{themes.theme}}</option>
+                                {% endfor %}
+                            </select>
+                            <img src='{{ asset('assets/add.png') }}' id='addlisttheme' height='24' width='24' style='cursor:pointer;'>
+                            <div id="addnewlist"></div><br>
+                            <br>
+                            <button id="addMotBtn" type="button" class="btn btn-primary btn-sm">Envoyer</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         {% for theme in listeTheme %}
@@ -32,7 +62,7 @@
                     <h5 class="mb-0" style='display:none;' id="{{theme.id}}editing">
                         <p>                    
                             <div class="input-group mb-3">
-                                <img src='{{ asset('assets/close.png') }}' id="removeEdit" accessKey="{{theme.id}}" height='24' width='24' align='center'>
+                                <img src='{{ asset('assets/close.png') }}' id="removeEdit" accessKey="{{theme.id}}" height='24' width='24' align='center' style="cursor: pointer;">
                                 <input id="themeEdit" placeholder="{{theme.theme}}" aria-label="{{theme.theme}}" aria-describedby="button-addon2" data-bs-toggle="collapse" data-bs-target="#collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" aria-expanded="false" aria-controls="collapse{{theme.theme|replace({' ': "-", "'": "-"})}}">
                                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">Envoyer</button>
                             </div>
@@ -47,7 +77,7 @@
                             <strong id='{{theme.id}}' data-bs-toggle="collapse" data-bs-target="#collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" aria-expanded="false" aria-controls="collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" style="cursor: pointer;">{{theme.theme}}</strong>
 
                             <img src='{{ asset('assets/delete-perm.png') }}' id='deletepermmodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer;">
-                            <img src='{{ asset('assets/delete.png') }}' id='deletemodal' height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer;">
+                            <img src='{{ asset('assets/delete.png') }}' id='deletemodal' accessKey="{{theme.theme}}" height='36' width='36' align='right' data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer;">
                             <img src='{{ asset('assets/edit.png') }}' id='editmodal' height='36' width='36' align='right' name='{{theme.id}}' style="cursor: pointer;">
                         </p>
                     </h5>
@@ -85,11 +115,6 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button class="btn btn-info" type="button" id='addNouveauMot' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                <img src='{{ asset('assets/add.png') }}' class='addnew' height='24' width='24' align='right'>
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -152,11 +177,24 @@ $(document).ready(function(){
         }
     });
 
+    $("#addlisttheme").click(function () {
+        texte = "<select class='selectTheme' selected='Aucun'><option>Aucun</option>{% for themes in listeTheme %}<option>{{themes.theme}}</option>{% endfor %}</select><br>";
+        $("#addnewlist").append(texte);
+    });
+
     $(".deleteMot").click(function () {
         $('#staticBackdrop').modal('show');
         $('#modalAction').text('supprimer');
-        $('#modalMot').text('le mot ' + $(this)[0].accessKey + ' ?');
+        $('#modalMot').text('le mot "' + $(this)[0].accessKey + '" ?');
         $('#modalID').val($(this)[0].id);
+    });
+
+    $("#collapseAdd").on('hidden.bs.collapse', function(){
+        $("#addimg")[0].src = "{{ asset('assets/add.png') }}";
+    });
+
+    $("#collapseAdd").on('show.bs.collapse', function(){
+        $("#addimg")[0].src = "{{ asset('assets/remove.png') }}";
     });
 
     $("#confirmDelete").click(function () {
@@ -174,7 +212,8 @@ $(document).ready(function(){
 
     $("#deletemodal").click(function () {
         $('#modalAction').text('supprimer');
-        $('#modalMot').text('test');
+        $('#modalMot').text('le thème "' + $(this)[0].accessKey + '" ?');
+        $('#modalType').value('deleteTheme');
     });
     $("#deletepermmodal").click(function () {
         $('#modalAction').text('supprimer');
