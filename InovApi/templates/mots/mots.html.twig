@@ -81,6 +81,7 @@
                         <img src='{{ asset('assets/edit.png') }}' id='editmodal' height='36' width='36' align='right' name='{{theme.id}}' style="cursor: pointer;">
                     </p>
                 </h5>
+                </div>
             </div>
 
             <div id="collapse{{theme.theme|replace({' ': "-", "'": "-"})}}" class="collapse connect-box" data-bs-parent="#accordion">
@@ -111,32 +112,11 @@
                                     <td><img src='{{ asset('assets/edit.png') }}' class="editMot" id="{{mot.id}}" height='24' width='24' align='right' style="cursor: pointer;"></td>
                                     <td><img src='{{ asset('assets/delete.png') }}' class="deleteMot" id="{{mot.id}}" accessKey="{{mot.motFrancais}}" height='24' width='24' align='right' style="cursor: pointer;"></td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {% for mot in theme.mots %}
-                                    <form id="motForm{{mot.id}}" path="{{ path('app_mots') }}" method="POST">
-                                        <tr>
-                                            <input type="hidden" name="type" value="editMot"></input>
-                                            <input type="hidden" name="id" value="{{mot.id}}"></input>
-                                            <td>
-                                                <text id="edit1-{{mot.id}}">{{mot.motFrancais}}</text>
-                                                <textarea class='motToEdit' id='edit3-{{mot.id}}' style='resize: none; display:none;' name="motFrancais" rows='1' title="{{mot.motFrancais}}">{{mot.motFrancais}}</textarea>
-                                            </td>
-                                            <td>
-                                                <text id="edit2-{{mot.id}}">{{mot.motAnglais}}</text>
-                                                <textarea class='motToEdit' id='edit4-{{mot.id}}' style='resize: none; display:none;' name="motAnglais" rows='1' title="{{mot.motAnglais}}">{{mot.motAnglais}}</textarea>
-                                            </td>
-                                            <td><img src='{{ asset('assets/edit.png') }}' class="editMot" id="{{mot.id}}" height='24' width='24' align='right' style="cursor: pointer;"></td>
-                                            <td><img src='{{ asset('assets/delete.png') }}' class="deleteMot" id="{{mot.id}}" accessKey="{{mot.motFrancais}}" height='24' width='24' align='right' style="cursor: pointer;"></td>
-                                        </tr>
-                                    </form>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
         {% endfor %}
     </div>
 </div>
